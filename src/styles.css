@@ -1,0 +1,276 @@
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  justify-content: center;
+  min-width: 320px;
+  min-height: 100vh;
+  /*background-color: #747bff;*/
+  background-color: rgb(20, 20, 30);
+}
+
+.background {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  place-items: center;
+  justify-content: center;
+}
+
+.square {
+  width: 50px;
+  height: 50px;
+  background-color: rgba(200, 200, 200, 0.9);
+  text-align: center;
+  /*outline: 1px solid black;*/
+  background-position: left top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: 33;
+  position: relative;
+}
+
+/* column repeat = const boardSize */
+.boardgrid {
+  display: inline-grid;
+  grid-gap: 0;
+  grid-template: repeat(10, auto) / repeat(10, auto);
+  margin: auto;
+  background-color: rgba(60, 60, 130, 1);
+}
+
+.square-image {
+  max-width: 100%;
+  max-height: 100%;
+  position: absolute;
+  top: 0;
+}
+
+.spotlight-all {
+  width: 500px;
+  height: 500px;
+  display: grid;
+  grid-gap: 0;
+  grid-template: 20% 80% / 80% 20%;
+}
+
+.spotlight-angle {
+  border: none;
+}
+
+.superficial-graphics {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lamp {
+  z-index: 45;
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  translate: -25px 75px;
+}
+
+.alarm-message {
+  font-family: "Press Start 2P", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 20px;
+  color: white;
+  background-color: rgba(222, 55, 55, 0.6);
+  text-align: center;
+  line-height: 1.5;
+  padding: 20px 20px 40px 20px;
+  z-index: 55;
+  height: auto;
+}
+
+.alarm-button {
+  font-family: "Press Start 2P", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 13px;
+  background-color: rgba(255, 255, 255, 0);
+  color: white;
+  border: 3px solid white;
+  display: inline-block;
+  padding: 20px;
+  cursor: pointer;
+  box-shadow: 7px 7px rgb(255, 255, 255);
+}
+
+.titlescreen {
+  font-family: "Press Start 2P", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 50px;
+  color: white;
+  text-align: center;
+}
+
+.titlescreen-button {
+  font-family: "Press Start 2P", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 30px;
+  background-color: rgb(20, 20, 30);
+  color: white;
+  border: 3px solid white;
+  display: inline-block;
+  padding: 25px;
+  margin: 25px 0 0 0;
+  cursor: pointer;
+  box-shadow: 7px 7px rgb(255, 255, 255);
+}
+
+.titlescreen-button-mobile {
+  display: none;
+}
+
+.endscreen {
+  font-family: "Press Start 2P", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  background-color: rgb(253,232,103);
+  background-size: cover;
+  background-position: center;
+  height: 500px;
+  width: 500px;
+  border: solid 5px white;
+  text-align: center;
+}
+
+.endscreen-button {
+  font-family: "Press Start 2P", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 17px;
+  background-color: rgb(20, 20, 30);
+  color: white;
+  border: 3px solid white;
+  display: inline-block;
+  padding: 20px;
+  cursor: pointer;
+  box-shadow: 7px 7px rgb(255, 255, 255);
+  line-height: 1.5;
+  margin: 0 0 60px 0;
+}
+
+.endscreen-button-mobile {
+  display: none;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  animation: 1s fadeIn;
+}
+
+@media only screen and (max-width: 600px) {
+  .square {
+    width: 100%;
+    height: 100%;
+  }
+
+  .boardgrid {
+    display: inline-grid;
+    grid-gap: 0;
+    grid-template: repeat(10, auto) / repeat(10, auto);
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+  }
+
+  .spotlight-all {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+  }
+
+  .lamp {
+    z-index: 45;
+    height: calc(100vw / 10);
+    width: calc(100vw / 10);
+    translate: calc(-100vw / 20) calc(100vw / 20 * 3);
+  }
+
+  .titlescreen {
+    font-size: 21px;
+  }
+
+  .titlescreen-button {
+    display: none;
+  }
+
+  .titlescreen-button-mobile {
+    font-family: "Press Start 2P", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+    background-color: rgb(20, 20, 30);
+    color: white;
+    border: 3px solid white;
+    display: inline-block;
+    padding: 9px;
+    margin: 20px 0 0 0;
+    cursor: pointer;
+    box-shadow: 6px 6px rgb(255, 255, 255);
+    display: inline-block;
+  }
+
+  .titlescreen img {
+    width: 70px;
+    height: auto;
+  }
+
+  .endscreen {
+    width: calc(100vw - 10px);
+    height: 100vw;
+    margin-bottom: 10vh;
+  }
+
+  .endscreen-button-mobile {
+    font-family: "Press Start 2P", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 17px;
+    background-color: rgb(20, 20, 30);
+    color: white;
+    border: 3px solid white;
+    display: inline-block;
+    padding: 20px;
+    cursor: pointer;
+    box-shadow: 7px 7px rgb(255, 255, 255);
+    line-height: 1.5;
+    margin: 0 0 30px 0;
+  }
+
+  .endscreen-button {
+    display: none;
+  }
+
+  .alarm-message {
+    font-size: 17px;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
