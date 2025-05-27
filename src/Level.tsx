@@ -26,6 +26,7 @@ function Level() {
     76: "south"
   };
   const lampLocation = { upLeft: 17, upRight: 18, downLeft: 27, downRight: 28 };
+  const [characterDirection, setCharacterDirection] = useState('right');
   const [squares, setSquares] = useState(Array(levelSize * levelSize).fill(null));
   const [currentLocation, setCurrentLocation] = useState(0);
   //const [currentLocation, setCurrentLocation] = useState<number | null>(null);
@@ -43,14 +44,21 @@ function Level() {
       nextLocation = currentLocation + levelSize;
     } else if (event.key === 'ArrowLeft') {
       nextLocation = currentLocation - 1;
+      setCharacterDirection('scaleX(-1)');
     } else if (event.key === 'ArrowRight') {
       nextLocation = currentLocation + 1;
+      setCharacterDirection('scaleX(1)');
     }
     updateLevel(nextLocation);
   }, [gameOver, currentLocation]);
 
   function handleClick(input: number) {
     if (gameOver) return; // Pysäytä liikkeet, jos peli on päättynyt
+    if (input === currentLocation - 1) {
+      setCharacterDirection('scaleX(-1)');
+    } else if (input === currentLocation + 1) {
+      setCharacterDirection('scaleX(1)');
+    }
     updateLevel(input);
   }
 
@@ -314,6 +322,7 @@ function Level() {
             onSquareClick={() => handleClick(index)}
             characterNearGoal={graphicsManager.characterNearGoal()}
             spotlight={spotlight}
+            characterDirection={characterDirection}
           />
         ))}
       </div>

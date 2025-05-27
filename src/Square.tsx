@@ -12,11 +12,10 @@ interface SquareProps {
   onSquareClick: () => void;
   characterNearGoal: boolean;
   spotlight: any[];
+  characterDirection: string;
 }
 
-function Square({ indicesOfShadows, value, index, onSquareClick, characterNearGoal, spotlight }: SquareProps) {
-
-  const [flip, setFlip] = useState('');
+function Square({ indicesOfShadows, value, index, onSquareClick, characterNearGoal, spotlight, characterDirection }: SquareProps) {
 
   const getBgc = () => {
     if (value === character || value === 'moveRadius') {
@@ -40,22 +39,6 @@ function Square({ indicesOfShadows, value, index, onSquareClick, characterNearGo
     }
   };
 
-  const handleKeyPress = useCallback((event: KeyboardEvent) => {
-    if (event.key === 'ArrowLeft') {
-      setFlip('scaleX(-1)');
-    } else if (event.key === 'ArrowRight') {
-      setFlip('scaleX(1)');
-    }
-  }, [flip]);
-
-  useEffect(() => {
-    window.addEventListener("keydown", handleKeyPress);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyPress);
-    };
-  }, [handleKeyPress]);
-
   function spinShadow() {
     if (indicesOfShadows[index] == "south") {
       return 'scale(-1, -1)';
@@ -72,17 +55,18 @@ function Square({ indicesOfShadows, value, index, onSquareClick, characterNearGo
     }
   }
 
+
   return (
     <div
       className="square"
       onClick={onSquareClick}
       style={{ backgroundColor: getBgc(), cursor: 'pointer' }}
     >
-      {/* <div style={{ display: 'flex', height: '100%', width: '100%', justifyContent: 'center', alignItems: 'center', outline: 'solid 1px darkred' }}>
-        <span>{index}</span>
-      </div> */}
+      <div style={{ display: 'flex', height: '100%', width: '100%', justifyContent: 'center', alignItems: 'center', outline: 'solid 1px darkred' }}>
+        <span>{index}{characterDirection}</span>
+      </div>
       {(value === character) && (
-        <img src={value} alt="content" style={{ right: '8px', transform: flip }} className="square-image" />
+        <img src={value} alt="content" style={{ right: '8px', transform: characterDirection }} className="square-image" />
       )}
       {(value === fence) && (
         <img src={value} alt="content" style={{ right: '0' }} className="square-image" />
