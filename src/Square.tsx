@@ -62,9 +62,9 @@ function Square({ indicesOfShadows, value, index, onSquareClick, characterNearGo
       onClick={onSquareClick}
       style={{ backgroundColor: getBgc(), cursor: 'pointer' }}
     >
-      <div style={{ display: 'flex', height: '100%', width: '100%', justifyContent: 'center', alignItems: 'center', outline: 'solid 1px darkred' }}>
+      {/* <div style={{ display: 'flex', height: '100%', width: '100%', justifyContent: 'center', alignItems: 'center', outline: 'solid 1px darkred' }}>
         <span>{index}{characterDirection}</span>
-      </div>
+      </div> */}
       {(value === character) && (
         <img src={value} alt="content" style={{ right: '8px', transform: characterDirection }} className="square-image" />
       )}
