@@ -50,7 +50,7 @@ body {
   margin: auto;
   width: 500px;
   height: 500px;
-  display: grid;
+  display: inline-grid;
   grid-gap: 0;
   grid-template: 20% 80% / 80% 20%;
 }
@@ -62,12 +62,14 @@ body {
 .superficial-graphics {
   position: absolute;
   top: 0;
+  bottom: 0;
+  right: 0;
   left: 0;
-  height: 100%;
-  width: 100%;
+  width: 100vw;
+  height: 100vh;
   display: flex;
-  justify-content: center;
   place-items: center;
+  justify-content: center;
 }
 
 .lamp {
