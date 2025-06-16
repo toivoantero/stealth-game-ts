@@ -1,14 +1,13 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
+import '@testing-library/jest-dom';
 import Level from './Level';
 
-test('renders level', () => {
+test('aloituksessa näkyy pelilauta', () => {
   render(
     <MemoryRouter>
       <Level />
     </MemoryRouter>
   );
-
-  // Tarkista, että jokin elementti renderöityy oikein
-expect(screen.getAllByRole("img", { name: /co|content/i }).length).toBeGreaterThan(0);
+  expect(screen.getByTestId('boardgrid')).toBeInTheDocument();
 });

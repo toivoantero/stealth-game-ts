@@ -300,7 +300,7 @@ function Level() {
 
   return (
     <div className='background'>
-      <div className='boardgrid'>
+      <div className='boardgrid' data-testid="boardgrid">
         <div className='superficial-graphics'>
           <div className='spotlight-all'>
             {graphicsManager.reorderSpotlightToDivs().map((value, index) => (

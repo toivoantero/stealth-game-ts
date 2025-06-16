@@ -66,7 +66,7 @@ function Square({ indicesOfShadows, value, index, onSquareClick, characterNearGo
         <span>{index}{characterDirection}</span>
       </div> */}
       {(value === character) && (
-        <img src={value} alt="content" style={{ right: '8px', transform: characterDirection }} className="square-image" />
+        <img src={value} alt="content" style={{ right: '8px', transform: characterDirection }} className="square-image" data-testid="character" />
       )}
       {(value === fence) && (
         <img src={value} alt="content" style={{ right: '0' }} className="square-image" />

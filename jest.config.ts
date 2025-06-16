@@ -11,9 +11,4 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   testMatch: ['**/?(*.)+(spec|test).[tj]s?(x)'],
-  globals: {
-    'ts-jest': {
-      isolatedModules: true
-    }
-  },
 }
