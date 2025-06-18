@@ -1,7 +1,7 @@
 import { render, screen, act } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
-import EndScreen from './EndScreen';
+import EndScreen from '../EndScreen';
 
 jest.useFakeTimers();
 

@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
-import TitleScreen from './TitleScreen';
+import TitleScreen from '../TitleScreen';
 
 test('TitleScreen renderöi logot ja napit', () => {
   render(
