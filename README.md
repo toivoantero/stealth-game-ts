@@ -1,8 +1,24 @@
-# React + Vite
+# Stealth Game TS
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**A simple stealth game built with React & TypeScript — inspired by classic stealth games.**
 
-Currently, two official plugins are available:
+## Project Description
+This is a browser-based stealth game where the player controls a character and tries to avoid being found while navigating through a level. The project is a practical exercise in React and TypeScript, exploring the ways how a small game can be built using modern web technologies.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Live Demo
+[Try the game here → Tiedustelijan Kosto](https://tiedustelijan-kosto.vercel.app)
+
+## Technologies
+- React  
+- TypeScript  
+- Vite  
+- CSS  
+
+## Installation & Setup
+1. Clone the repository:  
+   ```bash
+   git clone https://github.com/toivoantero/stealth-game-ts.git
+
+cd stealth-game-ts
+npm install
+npm run dev

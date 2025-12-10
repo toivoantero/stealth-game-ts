@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import end from './kuvat/end.jpg';
-import './styles.css';
+import './css/styles.css';
 
 function EndScreen() {
   let navigateTo = useNavigate();

@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Square from './Square';
-import './styles.css'
+import './css/styles.css'
 import character from './kuvat/character.png';
 import spiderweb from './kuvat/spiderweb.png';
 import obstacle from './kuvat/laatikko.png';

@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import logo from './kuvat/logo.svg';
-import './styles.css'
+import './css/styles.css'
 
 function TitleScreen() {
   let navigateTo = useNavigate();

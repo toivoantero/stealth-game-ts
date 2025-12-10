@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Square from './Square';
-import './styles.css'
+import './css/styles.css'
 import character from './kuvat/character.png';
 import moveRadius from './kuvat/moveRadius.png';
 import spiderweb from './kuvat/spiderweb.png';
