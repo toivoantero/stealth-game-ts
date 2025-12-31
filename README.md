@@ -16,9 +16,15 @@ This is a browser-based stealth game where the player controls a character and t
 
 ## Installation & Setup
 1. Clone the repository:  
-   ```bash
-   git clone https://github.com/toivoantero/stealth-game-ts.git
-
+```bash
+git clone https://github.com/toivoantero/stealth-game-ts.git
+```
+```bash
 cd stealth-game-ts
+```
+```bash
 npm install
+```
+```bash
 npm run dev
+```
