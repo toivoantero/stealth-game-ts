@@ -1,4 +1,4 @@
-# Stealth Game TS
+# Tiedustelijan Kosto — A Stealth Game
 
 **A simple stealth game built with React & TypeScript — inspired by classic stealth games.**
 
