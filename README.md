@@ -19,7 +19,7 @@ If the player’s character enters an illuminated area, the player is detected a
 ---
 
 #### 2. Win condition
-![Win condition](/src/kuvat/success.gif)
+![Win condition](/src/kuvat/win.gif)
 
 The player wins by moving the character to the stairs.
 To reach the stairs without being detected, the player can use shaded areas in the environment. 
