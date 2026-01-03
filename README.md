@@ -11,7 +11,7 @@ This is a browser-based stealth game where the player controls a character and t
 ## ✨ Features
 
 #### 1. Game over
-![Game over](/src/kuvat/alert.gif)
+![Game over](/src/kuvat/gameover.gif)
 
 A rotating spotlight illuminates different parts of the game area.
 If the player’s character enters an illuminated area, the player is detected and the game ends.
@@ -19,7 +19,7 @@ If the player’s character enters an illuminated area, the player is detected a
 ---
 
 #### 2. Win condition
-![Win condition](/src/kuvat/win.gif)
+![Win condition](/src/kuvat/gamewin.gif)
 
 The player wins by moving the character to the stairs.
 To reach the stairs without being detected, the player can use shaded areas in the environment. 
