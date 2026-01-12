@@ -3,7 +3,7 @@ import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import TitleScreen from '../TitleScreen';
 
-test('TitleScreen renderöi logot ja napit', () => {
+test('TitleScreen renders the logo and start button', () => {
   render(
     <MemoryRouter>
       <TitleScreen />

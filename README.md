@@ -35,7 +35,24 @@ The controls adapt to touch input, allowing the character to be moved by tapping
 - React  
 - TypeScript  
 - Vite  
-- CSS  
+- CSS
+
+## 🧪 Testing
+
+Basic automated tests are included to ensure that core components render correctly and respond to user interactions as expected.
+
+Testing covers:
+
+-Rendering of main screens (TitleScreen, Level, EndScreen)
+-User interactions such as clicking game elements
+-Simple time-based UI behavior
+
+Tests are written using **Jest** and **React Testing Library**.
+
+To run tests locally:
+```bash
+npm test
+```
 
 ## ⚙️ Installation & Setup
 1. Clone the repository:  

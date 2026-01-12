@@ -4,7 +4,7 @@ import Square from '../Square';
 import character from './kuvat/character.png';
 import userEvent from '@testing-library/user-event';
 
-test('Square näyttää hahmon kuvan', () => {
+test('Square shows the character image', () => {
   render(<Square
     indicesOfShadows={{}}
     value={character}
@@ -17,7 +17,7 @@ test('Square näyttää hahmon kuvan', () => {
   expect(screen.getAllByAltText('content').length).toBeGreaterThan(0);
 });
 
-test('Square kutsuu onSquareClick kun ruutua klikataan', async () => {
+test('Square calls onSquareClick when the square is clicked', async () => {
   const handleClick = jest.fn();
   render(<Square
     indicesOfShadows={{}}

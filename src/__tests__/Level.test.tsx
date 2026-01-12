@@ -3,7 +3,7 @@ import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import Level from '../Level';
 
-test('aloituksessa näkyy pelilauta', () => {
+test('The level is shown in the beginning', () => {
   render(
     <MemoryRouter>
       <Level />

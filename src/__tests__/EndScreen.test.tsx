@@ -5,7 +5,7 @@ import EndScreen from '../EndScreen';
 
 jest.useFakeTimers();
 
-test('EndScreen näyttää napin 3 sekunnin jälkeen', () => {
+test('EndScreen shows the button after 3 seconds', () => {
   render(
     <MemoryRouter>
       <EndScreen />
