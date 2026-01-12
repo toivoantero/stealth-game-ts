@@ -43,9 +43,9 @@ Basic automated tests are included to ensure that core components render correct
 
 Testing covers:
 
--Rendering of main screens (TitleScreen, Level, EndScreen)
--User interactions such as clicking game elements
--Simple time-based UI behavior
+- Rendering of main screens (TitleScreen, Level, EndScreen)  
+- User interactions such as clicking game elements
+- Simple time-based UI behavior
 
 Tests are written using **Jest** and **React Testing Library**.
 
