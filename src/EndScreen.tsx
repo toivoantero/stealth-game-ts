@@ -1,11 +1,18 @@
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+import { useBackgroundMusic } from './hooks/useBackgroundMusic';
 import end from './kuvat/end.jpg';
 import './css/styles.css';
 
 function EndScreen() {
   let navigateTo = useNavigate();
   const [showButton, setShowButton] = useState(false);
+  const { setVolume } =
+    useBackgroundMusic('/theend.wav');
+
+  useEffect(() => {
+    setVolume(0.3);
+  }, []);
 
   function handleClick() {
     navigateTo('/level');

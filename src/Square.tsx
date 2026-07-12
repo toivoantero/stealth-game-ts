@@ -13,12 +13,15 @@ interface SquareProps {
   characterNearGoal: boolean;
   spotlight: any[];
   characterDirection: string;
+  goalSquare: number;
 }
 
-function Square({ indicesOfShadows, value, index, onSquareClick, characterNearGoal, spotlight, characterDirection }: SquareProps) {
+function Square({ indicesOfShadows, value, index, onSquareClick, characterNearGoal, spotlight, characterDirection, goalSquare }: SquareProps) {
 
   const getBgc = () => {
-    if (value === character || value === 'moveRadius') {
+    if (value === character && index === goalSquare) {
+      return 'rgb(153, 154, 93)';
+    } else if (value === character || value === 'moveRadius') {
       return 'rgba(217, 255, 0, 0.7)';
     } else if (value === fence) {
       return 'rgba(111,222,222,0.7';
@@ -66,13 +69,28 @@ function Square({ indicesOfShadows, value, index, onSquareClick, characterNearGo
         <span>{index}{characterDirection}</span>
       </div> */}
       {(value === character) && (
-        <img src={value} alt="content" style={{ right: '8px', transform: characterDirection }} className="square-image" data-testid="character" />
+        <img
+          src={value}
+          alt="content"
+          style={{
+            right: '8px',
+            transform: characterDirection,
+            zIndex: 2
+          }}
+          className="square-image"
+          data-testid="character"
+        />
       )}
       {(value === fence) && (
         <img src={value} alt="content" style={{ right: '0' }} className="square-image" />
       )}
       {(value === stairs || value === obstacle) && (
-        <img src={value} alt="content" style={{ opacity: '0.5', right: '0' }} className="square-image" />
+        <img
+          src={value}
+          alt="content"
+          style={{ opacity: '0.5', right: '0' }}
+          className="square-image"
+        />
       )}
       {indicesOfShadows && indicesOfShadows[index] && (indicesOfShadows[index] === "south" || indicesOfShadows[index] === "west") && (
         <img src={shadow} alt="content" style={{ opacity: shadowOnOff(), right: '0', transform: spinShadow() }} className="square-image" />

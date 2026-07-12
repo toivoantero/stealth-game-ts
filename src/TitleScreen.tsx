@@ -1,10 +1,16 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { preloadAudio } from './audioLoader';
 import logo from './kuvat/logo.svg';
 import './css/styles.css'
 
 function TitleScreen() {
   let navigateTo = useNavigate();
+
+  useEffect(() => {
+    preloadAudio('/stealth.wav')
+      .catch(error => console.error(error));
+  }, []);
 
   function handleClick() {
     navigateTo('/level');

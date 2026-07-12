@@ -1,5 +1,7 @@
-import { useEffect, useState, useCallback } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState, useCallback, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAlarmSound } from './hooks/useAlarmSound';
+import { useBackgroundMusic } from './hooks/useBackgroundMusic';
 import Square from './Square';
 import './css/styles.css'
 import character from './kuvat/character.png';
@@ -8,10 +10,16 @@ import obstacle from './kuvat/laatikko.png';
 import stairs from './kuvat/portaat.png';
 import lamp from './kuvat/lamppu.png'
 import lamp_bg from './kuvat/lamppu_tausta.png'
-import EndScreen from './EndScreen';
 
 // Eri kentät voisi tehdä niin, että samaan Level-funktioon tuodaan erilaiset kenttämääreet Json-objektina.
 function Level() {
+  const { playAlarm, stopAlarm } = useAlarmSound();
+
+  const {
+    setVolume,
+    fadeOut
+  } = useBackgroundMusic('/stealth.wav');
+
   const light = 'rgba(255,255,190,1';
   const levelSize = 10;
   const startSquare = 51;
@@ -28,15 +36,18 @@ function Level() {
   const lampLocation = { upLeft: 17, upRight: 18, downLeft: 27, downRight: 28 };
   const [characterDirection, setCharacterDirection] = useState('right');
   const [squares, setSquares] = useState(Array(levelSize * levelSize).fill(null));
-  const [currentLocation, setCurrentLocation] = useState(0);
-  //const [currentLocation, setCurrentLocation] = useState<number | null>(null);
-  const [spotlight, setSpotlight] = useState([null, light, null, null]);
+  const [currentLocation, setCurrentLocation] = useState<number | null>(null);
   const [gameOver, setGameOver] = useState(false);
-  const [currentSpotlightIndex, setCurrentSpotlightIndex] = useState(0);
+  const [currentSpotlightIndex, setCurrentSpotlightIndex] = useState<number | null>(1);
+  const [levelCompleted, setLevelCompleted] = useState(false);
   let navigateTo = useNavigate();
 
+  const spotlight = currentSpotlightIndex === null
+    ? [null, null, null, null]
+    : Array.from({ length: 4 }, (_, idx) => (idx === currentSpotlightIndex ? light : null));
+
   const handleKeyPress = useCallback((event: KeyboardEvent) => {
-    if (gameOver || currentLocation === null ) return;
+    if (gameOver || currentLocation === null) return;
     let nextLocation: number = 0;
     if (event.key === 'ArrowUp') {
       nextLocation = currentLocation - levelSize;
@@ -53,20 +64,21 @@ function Level() {
   }, [gameOver, currentLocation]);
 
   function handleClick(input: number) {
-    if (gameOver) return; // Pysäytä liikkeet, jos peli on päättynyt
+    if (gameOver || currentLocation === null) return;
+
     if (input === currentLocation - 1) {
       setCharacterDirection('scaleX(-1)');
     } else if (input === currentLocation + 1) {
       setCharacterDirection('scaleX(1)');
     }
+
     updateLevel(input);
   }
 
   // Pelilaudan alustus
   function initializeLevel() {
-    let initialSquares = Array(levelSize * levelSize).fill(null);
+    const initialSquares = Array(levelSize * levelSize).fill(null);
 
-    // Asetetetaan verkot ja esteet
     const indicesSpiderweb = [
       ...Array.from({ length: 20 }, (_, i) => i),
       ...Array.from({ length: 20 }, (_, i) => 80 + i)
@@ -75,36 +87,31 @@ function Level() {
       initialSquares[index] = spiderweb;
     });
 
-    const indicesObstacle = [
-      ...Array.from({ length: 1 }, (_, i) => obstacleLocations[0] + i),
-      ...Array.from({ length: 1 }, (_, i) => obstacleLocations[1] + i),
-      ...Array.from({ length: 1 }, (_, i) => obstacleLocations[2] + i),
-      ...Array.from({ length: 1 }, (_, i) => obstacleLocations[3] + i)
-    ];
-    indicesObstacle.forEach(index => {
+    obstacleLocations.forEach(index => {
       initialSquares[index] = obstacle;
     });
 
-    // Merkkaa hahmon liikkumavaran
     paintRadius(initialSquares, startSquare);
-
-    // Asetetaan maali- ja lähtöruudut
     initialSquares[goalSquare] = stairs;
     initialSquares[startSquare] = character;
 
     setSquares(initialSquares);
     setCurrentLocation(startSquare);
-    setCurrentSpotlightIndex(0);
-    setSpotlight([null, null, null, null]);
+    setCurrentSpotlightIndex(null);
     setGameOver(false);
+    setLevelCompleted(false);
+
+    setVolume(0.5);
+
+    stopAlarm();
   }
 
   // Päivittää pelilaudan sisällön, vaikkapa hahmon sijainnin
   function updateLevel(nextLocation: number): void {
-    if (gameOver) return; // Pysäytä liikkeet, jos peli on päättynyt
-    let nextSquares: (string | number | null)[] = squares.slice().map((value: string | number | null) => value === 'moveRadius' ? null : value);
+    if (gameOver || currentLocation === null) return;
 
-    // Tarkistaa onko klikatussa kohdassa jokin kappale
+    const nextSquares = squares.slice().map((value: string | number | null) => value === 'moveRadius' ? null : value);
+
     if (
       squares[nextLocation] === character ||
       squares[nextLocation] === spiderweb ||
@@ -113,36 +120,39 @@ function Level() {
       return;
     }
 
-    // Asettaa mahdolliset siirrot pelihahmolle
-    if (currentLocation) {
-      let validMoves: number[] = [];
-      if (currentLocation % levelSize === 0) {
-        validMoves = [currentLocation + 1, currentLocation + levelSize, currentLocation - levelSize];
-      } else if ((currentLocation + 1) % levelSize === 0) {
-        validMoves = [currentLocation - 1, currentLocation + levelSize, currentLocation - levelSize];
-      } else {
-        validMoves = [currentLocation + 1, currentLocation - 1, currentLocation + levelSize, currentLocation - levelSize];
-      }
-      if (!validMoves.includes(nextLocation)) {
-        return;
-      }
+    const validMoves: number[] = currentLocation % levelSize === 0
+      ? [currentLocation + 1, currentLocation + levelSize, currentLocation - levelSize]
+      : (currentLocation + 1) % levelSize === 0
+        ? [currentLocation - 1, currentLocation + levelSize, currentLocation - levelSize]
+        : [currentLocation + 1, currentLocation - 1, currentLocation + levelSize, currentLocation - levelSize];
+
+    if (!validMoves.includes(nextLocation)) {
+      return;
     }
 
     paintRadius(nextSquares, nextLocation);
-
-    // Asettaa pelilaudan ruuduille pelihahmon
     nextSquares[nextLocation] = character;
     setSquares(nextSquares);
     setCurrentLocation(nextLocation);
 
-    // Jos pelihahmo pääsee maaliin, niin meneillään oleva taso loppuu, ja näkymä siirtyy 
     if (nextLocation === goalSquare) {
-      navigateTo('/endscreen');
+      setLevelCompleted(true);
+      handleGameEnd();
     }
   }
 
+  const handleGameEnd = () => {
+    stopAlarm();
+
+    fadeOut();
+
+    setTimeout(() => {
+      navigateTo('/endscreen');
+    }, 1500);
+  };
+
   // Merkkaa hahmon liikkumavaran eli mahdolliset siirrot
-  function paintRadius(nextSquares: (string | number | null)[] , nextLocation: number) {
+  function paintRadius(nextSquares: (string | number | null)[], nextLocation: number) {
     // Valitsee pelihahmon sijaintia ympäröivät ruudut niiden merkkaamista varten
     let neighbourIndices = [];
     if (nextLocation % levelSize === 0) {
@@ -170,13 +180,14 @@ function Level() {
 
   // Tarkistaa osuuko valokeila pelihahmoon ja mikäli osuu, lopettaa pelisuorituksen
   function spotlightOnCharacter() {
-    let lightedAreaWhole = Array.from(
-      { length: levelSize * levelSize },
-      (_, index) => index)
+    if (gameOver || levelCompleted || currentLocation === null) return;
+
+    const lightedAreaWhole = Array.from({ length: levelSize * levelSize }, (_, index) => index)
       .filter(value => value >= 20)
       .filter(value => value <= 79);
-    let lightedAreaLeft;
-    let lightedAreaRight;
+
+    let lightedAreaLeft: number[] = [];
+    let lightedAreaRight: number[] = [];
 
     if (lampLocation.downLeft % 10 >= 0) {
       const excludeNumbers = Array.from(
@@ -198,12 +209,12 @@ function Level() {
       {
         outsideBeamzone: lightedAreaLeft,
         behindObstacle: shadowLocations,
-        goalSquare: goalSquare
+        goalSquare
       },
       {
         outsideBeamzone: lightedAreaRight,
         behindObstacle: shadowLocations,
-        goalSquare: goalSquare
+        goalSquare
       }
     ];
 
@@ -211,23 +222,23 @@ function Level() {
       if (
         spotlight[index] === light &&
         !(
-          (config.outsideBeamzone && config.outsideBeamzone.includes(currentLocation)) ||
+          config.outsideBeamzone.includes(currentLocation) ||
           currentLocation in config.behindObstacle ||
           config.goalSquare === currentLocation
         )
       ) {
         setGameOver(true);
+        setVolume(0.25);
+        playAlarm();
       }
     });
   }
 
   function spotlightOnOff() {
-    setSpotlight(prevSpotlight => {
-      const newSpotlight: string [] = ['', '', '', ''];
-      newSpotlight[currentSpotlightIndex] = light;
-      return newSpotlight;
+    setCurrentSpotlightIndex(prevIndex => {
+      if (prevIndex === null) return 0;
+      return (prevIndex + 1) % 4;
     });
-    setCurrentSpotlightIndex(prevIndex => (prevIndex + 1) % 4);
   }
 
   const graphicsManager = {
@@ -276,15 +287,14 @@ function Level() {
 
   // Määrittää valokeilan näkymisen aikamääreet, eli miten kauan se näkyy
   useEffect(() => {
-    if (!gameOver) {
+    if (gameOver || levelCompleted) return;
 
-      const timeout = setInterval(() => {
-        spotlightOnOff();
-        console.log(spotlight);
-      }, 3000);
-      return () => clearInterval(timeout);
-    }
-  }, [currentSpotlightIndex, gameOver]);
+    const interval = setInterval(() => {
+      spotlightOnOff();
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [gameOver, levelCompleted]);
 
   useEffect(() => {
     initializeLevel();
@@ -323,6 +333,7 @@ function Level() {
             characterNearGoal={graphicsManager.characterNearGoal()}
             spotlight={spotlight}
             characterDirection={characterDirection}
+            goalSquare={goalSquare}
           />
         ))}
       </div>
