@@ -8,7 +8,7 @@ export function useAlarmSound() {
 
     alarmAudio.loop = false;
     alarmAudio.preload = 'auto';
-    alarmAudio.volume = 0.3;
+    alarmAudio.volume = 0.1;
 
     alarmAudioRef.current = alarmAudio;
 
