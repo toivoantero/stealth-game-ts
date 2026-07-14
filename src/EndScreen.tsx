@@ -35,13 +35,16 @@ function EndScreen() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowButton(true);
-    }, 3000);
+    }, 4000);
 
     return () => clearTimeout(timer);
   }, []);
 
   return (
-    <div className='endscreen' style={{ backgroundImage: `url(${end})` }}>
+    <div
+      className='endscreen endscreen-fadein'
+      style={{ backgroundImage: `url(${end})` }}
+    >
       <div style={{
         display: 'flex',
         justifyContent: 'space-between',

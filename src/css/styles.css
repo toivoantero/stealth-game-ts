@@ -180,7 +180,37 @@ body {
 }
 
 .fadeIn {
+  visibility: visible;
   animation: 1s fadeIn;
+}
+
+.logoFadeIn {
+  visibility: visible;
+  animation: fadeIn 4s ease-in forwards;
+}
+
+.buttonFadeIn {
+  visibility: visible;
+  animation: 2s fadeIn;
+}
+
+.endscreen-fadein {
+  animation: pixelReveal 3s steps(16) forwards;
+}
+
+@keyframes pixelReveal {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.hidden {
+  opacity: 0;
+  visibility: hidden;
 }
 
 @media only screen and (max-width: 600px) {
