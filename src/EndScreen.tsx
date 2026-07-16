@@ -8,7 +8,7 @@ function EndScreen() {
   let navigateTo = useNavigate();
   const [showButton, setShowButton] = useState(false);
   const { setVolume } =
-    useBackgroundMusic('/theend.mp3');
+    useBackgroundMusic('/theend.mp3', false);
 
   useEffect(() => {
     setVolume(0.3);

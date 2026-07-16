@@ -4,7 +4,10 @@ import {
     getCachedAudio
 } from '../audioLoader';
 
-export function useBackgroundMusic(audioFile: string) {
+export function useBackgroundMusic(
+    audioFile: string,
+    loop = true
+) {
     const audioContextRef = useRef<AudioContext | null>(null);
     const audioSourceRef = useRef<AudioBufferSourceNode | null>(null);
     const gainNodeRef = useRef<GainNode | null>(null);
@@ -15,7 +18,7 @@ export function useBackgroundMusic(audioFile: string) {
             const source = audioCtx.createBufferSource();
 
             source.buffer = audioBuffer;
-            source.loop = true;
+            source.loop = loop;
 
             source.connect(gainNode);
             gainNode.connect(audioCtx.destination);

@@ -9,16 +9,25 @@ function TitleScreen() {
   const [showLogo, setShowLogo] = useState(false);
   const [showButton, setShowButton] = useState(false);
   let navigateTo = useNavigate();
+  const { setVolume } = useBackgroundMusic('/intro.mp3', false);
 
   useEffect(() => {
-    preloadAudio('/stealth.wav')
-      .catch(error => console.error(error));
+    setVolume(0.4);
+  }, []);
+
+  useEffect(() => {
+    Promise.all([
+      preloadAudio('/stealth.wav'),
+      preloadAudio('/theend.mp3')
+    ]).catch(error =>
+      console.error(error)
+    );
 
     setShowLogo(true);
 
     const buttonTimer = setTimeout(() => {
       setShowButton(true);
-    }, 3000);
+    }, 8000);
 
     return () => {
       clearTimeout(buttonTimer);
@@ -45,12 +54,16 @@ function TitleScreen() {
 
   return (
     <div className='titlescreen'>
-      <div className={showLogo ? 'logoFadeIn' : ''}>
-        <img style={{ margin: '13px 10px' }} src={logo} alt='Logo'></img>
-        <img style={{ margin: '13px 10px', transform: 'scaleX(-1)' }} src={logo} alt='Logo'></img>
-        <p style={{ margin: '0.2em' }}>Tiedustelijan<br></br>----kosto----</p>
-        <img style={{ margin: '13px 10px', transform: 'scaleY(-1)' }} src={logo} alt='Logo'></img>
-        <img style={{ margin: '13px 10px', transform: 'scale(-1, -1)' }} src={logo} alt='Logo'></img>
+      <div>
+        <div className={showLogo ? 'logoTopFadeIn' : ''}>
+          <img style={{ margin: '13px 10px' }} src={logo} alt='Logo'></img>
+          <img style={{ margin: '13px 10px', transform: 'scaleX(-1)' }} src={logo} alt='Logo'></img>
+        </div>
+        <p className={showLogo ? 'logoMiddleFadeIn' : ''} style={{ margin: '0.2em' }}>Tiedustelijan<br></br>----kosto----</p>
+        <div className={showLogo ? 'logoBottomFadeIn' : ''}>
+          <img style={{ margin: '13px 10px', transform: 'scaleY(-1)' }} src={logo} alt='Logo'></img>
+          <img style={{ margin: '13px 10px', transform: 'scale(-1, -1)' }} src={logo} alt='Logo'></img>
+        </div>
         <br></br>
       </div>
       <button

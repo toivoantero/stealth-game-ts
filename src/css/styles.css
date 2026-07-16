@@ -184,14 +184,24 @@ body {
   animation: 1s fadeIn;
 }
 
-.logoFadeIn {
+.logoTopFadeIn {
   visibility: visible;
-  animation: fadeIn 4s ease-in forwards;
+  animation: fadeIn 2s ease-in;
+}
+
+.logoMiddleFadeIn {
+  visibility: visible;
+  animation: fadeIn 4s ease-in 4s backwards;
+}
+
+.logoBottomFadeIn {
+  visibility: visible;
+  animation: fadeIn 2s ease-in 2s backwards;
 }
 
 .buttonFadeIn {
   visibility: visible;
-  animation: 2s fadeIn;
+  animation: 3s fadeIn;
 }
 
 .endscreen-fadein {

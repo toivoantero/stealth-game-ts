@@ -144,11 +144,11 @@ function Level() {
   const handleGameEnd = () => {
     stopAlarm();
 
-    fadeOut();
+    fadeOut(2.5);
 
     setTimeout(() => {
       navigateTo('/endscreen');
-    }, 1500);
+    }, 3000);
   };
 
   // Merkkaa hahmon liikkumavaran eli mahdolliset siirrot
