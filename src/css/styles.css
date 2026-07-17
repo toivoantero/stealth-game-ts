@@ -140,13 +140,21 @@ body {
   font-family: "Press Start 2P", system-ui;
   font-weight: 400;
   font-style: normal;
-  background-color: rgb(253,232,103);
+  background-color: rgb(253, 232, 103);
   background-size: cover;
   background-position: center;
   height: 500px;
   width: 500px;
   border: solid 5px white;
   text-align: center;
+}
+
+.endscreen-content {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
 }
 
 .endscreen-button {
@@ -169,6 +177,40 @@ body {
   display: none;
 }
 
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.fade-in-retry-button {
+  visibility: visible;
+  animation: 1s fadeIn;
+}
+
+.fade-in-logo-top {
+  visibility: visible;
+  animation: fadeIn 2s ease-in;
+}
+
+.fade-in-logo-middle {
+  visibility: visible;
+  animation: fadeIn 4s ease-in 3s backwards;
+}
+
+.fade-in-logo-bottom {
+  visibility: visible;
+  animation: fadeIn 2s ease-in 2s backwards;
+}
+
+.fade-in-start-button {
+  visibility: visible;
+  animation: 3s fadeIn;
+}
+
+.fade-in-endscreen {
+  animation: pixelReveal 4s steps(24) forwards;
+}
+
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -179,35 +221,6 @@ body {
   }
 }
 
-.fadeIn {
-  visibility: visible;
-  animation: 1s fadeIn;
-}
-
-.logoTopFadeIn {
-  visibility: visible;
-  animation: fadeIn 2s ease-in;
-}
-
-.logoMiddleFadeIn {
-  visibility: visible;
-  animation: fadeIn 4s ease-in 4s backwards;
-}
-
-.logoBottomFadeIn {
-  visibility: visible;
-  animation: fadeIn 2s ease-in 2s backwards;
-}
-
-.buttonFadeIn {
-  visibility: visible;
-  animation: 3s fadeIn;
-}
-
-.endscreen-fadein {
-  animation: pixelReveal 3s steps(16) forwards;
-}
-
 @keyframes pixelReveal {
   from {
     clip-path: inset(0 0 100% 0);
@@ -216,11 +229,6 @@ body {
   to {
     clip-path: inset(0 0 0 0);
   }
-}
-
-.hidden {
-  opacity: 0;
-  visibility: hidden;
 }
 
 @media only screen and (max-width: 600px) {
@@ -272,7 +280,6 @@ body {
     margin: 20px 0 0 0;
     cursor: pointer;
     box-shadow: 6px 6px rgb(255, 255, 255);
-    display: inline-block;
   }
 
   .titlescreen img {

@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useRef } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAlarmSound } from './hooks/useAlarmSound';
 import { useBackgroundMusic } from './hooks/useBackgroundMusic';
@@ -11,7 +11,6 @@ import stairs from './kuvat/portaat.png';
 import lamp from './kuvat/lamppu.png'
 import lamp_bg from './kuvat/lamppu_tausta.png'
 
-// Eri kentät voisi tehdä niin, että samaan Level-funktioon tuodaan erilaiset kenttämääreet Json-objektina.
 function Level() {
   const { playAlarm, stopAlarm } = useAlarmSound();
 
@@ -40,7 +39,7 @@ function Level() {
   const [gameOver, setGameOver] = useState(false);
   const [currentSpotlightIndex, setCurrentSpotlightIndex] = useState<number | null>(1);
   const [levelCompleted, setLevelCompleted] = useState(false);
-  let navigateTo = useNavigate();
+  const navigate = useNavigate();
 
   const spotlight = currentSpotlightIndex === null
     ? [null, null, null, null]
@@ -75,7 +74,6 @@ function Level() {
     updateLevel(input);
   }
 
-  // Pelilaudan alustus
   function initializeLevel() {
     const initialSquares = Array(levelSize * levelSize).fill(null);
 
@@ -141,15 +139,13 @@ function Level() {
     }
   }
 
-  const handleGameEnd = () => {
+  function handleGameEnd() {
     stopAlarm();
-
     fadeOut(2.5);
-
     setTimeout(() => {
-      navigateTo('/endscreen');
+      navigate('/endscreen');
     }, 3000);
-  };
+  }
 
   // Merkkaa hahmon liikkumavaran eli mahdolliset siirrot
   function paintRadius(nextSquares: (string | number | null)[], nextLocation: number) {
@@ -276,10 +272,6 @@ function Level() {
       );
     }
   };
-  /*
-  useEffect-käynnistäjät 
-  tästä alaspäin
-  */
 
   useEffect(() => {
     spotlightOnCharacter();

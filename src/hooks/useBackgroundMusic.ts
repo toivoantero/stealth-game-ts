@@ -6,7 +6,8 @@ import {
 
 export function useBackgroundMusic(
     audioFile: string,
-    loop = true
+    loop = true,
+    volume = 0.5
 ) {
     const audioContextRef = useRef<AudioContext | null>(null);
     const audioSourceRef = useRef<AudioBufferSourceNode | null>(null);
@@ -34,10 +35,11 @@ export function useBackgroundMusic(
             (window as any).webkitAudioContext;
 
         const audioCtx = new AudioContextClass();
+
         audioContextRef.current = audioCtx;
 
         const gainNode = audioCtx.createGain();
-        gainNode.gain.value = 0.5;
+        gainNode.gain.value = volume;
 
         gainNodeRef.current = gainNode;
 
@@ -69,7 +71,7 @@ export function useBackgroundMusic(
 
             audioContextRef.current?.close().catch(() => { });
         };
-    }, [audioFile]);
+    }, [audioFile, loop, volume]);
 
     function setVolume(volume: number) {
         const gainNode = gainNodeRef.current;

@@ -1,27 +1,18 @@
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { useBackgroundMusic } from './hooks/useBackgroundMusic';
 import end from './kuvat/end.jpg';
 import './css/styles.css';
 
 function EndScreen() {
-  let navigateTo = useNavigate();
+  const navigate = useNavigate();
   const [showButton, setShowButton] = useState(false);
-  const { setVolume } =
-    useBackgroundMusic('/theend.mp3', false);
-
-  useEffect(() => {
-    setVolume(0.3);
-  }, []);
-
-  function handleClick() {
-    navigateTo('/level');
-  }
+  useBackgroundMusic('/theend.mp3', false, 0.3);
 
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
       if (event.key === 'Enter' && showButton) {
-        handleClick();
+        navigate('/level')
       }
     };
 
@@ -35,33 +26,27 @@ function EndScreen() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowButton(true);
-    }, 4000);
+    }, 6000);
 
     return () => clearTimeout(timer);
   }, []);
 
   return (
     <div
-      className='endscreen endscreen-fadein'
+      className='endscreen fade-in-endscreen'
       style={{ backgroundImage: `url(${end})` }}
     >
-      <div style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        flexDirection: 'column',
-        alignItems: 'center',
-        height: '100%',
-      }}>
+      <div className='endscreen-content'>
         <p style={{ margin: 0, padding: '20px 0', fontSize: '50px', color: 'white' }}>Loppu</p>
         {showButton && (
           <div>
             <button
-              onClick={handleClick}
-              className='fadeIn endscreen-button'>
+              onClick={() => navigate('/level')}
+              className='fade-in-start-button endscreen-button'>
               Uusi peli?<br></br>Paina ⏎ Enter</button>
             <button
-              onClick={handleClick}
-              className='fadeIn endscreen-button-mobile'>
+              onClick={() => navigate('/level')}
+              className='fade-in-start-button endscreen-button-mobile'>
               Uusi peli?</button>
           </div>
         )}

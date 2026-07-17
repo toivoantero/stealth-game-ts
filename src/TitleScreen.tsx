@@ -6,14 +6,9 @@ import logo from './kuvat/logo.svg';
 import './css/styles.css'
 
 function TitleScreen() {
-  const [showLogo, setShowLogo] = useState(false);
   const [showButton, setShowButton] = useState(false);
-  let navigateTo = useNavigate();
-  const { setVolume } = useBackgroundMusic('/intro.mp3', false);
-
-  useEffect(() => {
-    setVolume(0.4);
-  }, []);
+  const navigate = useNavigate();
+  useBackgroundMusic('/intro.mp3', false, 0.4);
 
   useEffect(() => {
     Promise.all([
@@ -23,25 +18,19 @@ function TitleScreen() {
       console.error(error)
     );
 
-    setShowLogo(true);
-
     const buttonTimer = setTimeout(() => {
       setShowButton(true);
-    }, 8000);
+    }, 7000);
 
     return () => {
       clearTimeout(buttonTimer);
     };
   }, []);
 
-  function handleClick() {
-    navigateTo('/level');
-  }
-
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
       if (event.key === 'Enter') {
-        handleClick();
+        navigate('/level')
       }
     };
 
@@ -50,32 +39,32 @@ function TitleScreen() {
     return () => {
       window.removeEventListener('keydown', handleKeyPress);
     };
-  }, []);
+  }, [navigate]);
 
   return (
     <div className='titlescreen'>
       <div>
-        <div className={showLogo ? 'logoTopFadeIn' : ''}>
+        <div className='fade-in-logo-top'>
           <img style={{ margin: '13px 10px' }} src={logo} alt='Logo'></img>
           <img style={{ margin: '13px 10px', transform: 'scaleX(-1)' }} src={logo} alt='Logo'></img>
         </div>
-        <p className={showLogo ? 'logoMiddleFadeIn' : ''} style={{ margin: '0.2em' }}>Tiedustelijan<br></br>----kosto----</p>
-        <div className={showLogo ? 'logoBottomFadeIn' : ''}>
+        <p className='fade-in-logo-middle' style={{ margin: '0.2em' }}>Tiedustelijan<br></br>----kosto----</p>
+        <div className='fade-in-logo-bottom'>
           <img style={{ margin: '13px 10px', transform: 'scaleY(-1)' }} src={logo} alt='Logo'></img>
           <img style={{ margin: '13px 10px', transform: 'scale(-1, -1)' }} src={logo} alt='Logo'></img>
         </div>
         <br></br>
       </div>
       <button
-        onClick={handleClick}
-        className={`titlescreen-button ${showButton ? 'buttonFadeIn' : 'hidden'}`}>
+        onClick={() => navigate('/level')}
+        className={`titlescreen-button ${showButton ? 'fade-in-start-button' : 'hidden'}`}>
         Paina ⏎ Enter<br />
         aloittaaksesi pelin
       </button>
 
       <button
-        onClick={handleClick}
-        className={`titlescreen-button-mobile ${showButton ? 'buttonFadeIn' : 'hidden'}`}
+        onClick={() => navigate('/level')}
+        className={`titlescreen-button-mobile ${showButton ? 'fade-in-start-button' : 'hidden'}`}
         style={{ marginBottom: '20vh' }}>
         Aloita peli tästä
       </button>
