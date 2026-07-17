@@ -26,7 +26,7 @@ function EndScreen() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowButton(true);
-    }, 6000);
+    }, 5600);
 
     return () => clearTimeout(timer);
   }, []);

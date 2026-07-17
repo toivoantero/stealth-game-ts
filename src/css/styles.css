@@ -189,17 +189,17 @@ body {
 
 .fade-in-logo-top {
   visibility: visible;
-  animation: fadeIn 2s ease-in;
+  animation: fadeIn 2.5s ease-in;
 }
 
 .fade-in-logo-middle {
   visibility: visible;
-  animation: fadeIn 4s ease-in 3s backwards;
+  animation: fadeIn 3s ease-in 4s backwards;
 }
 
 .fade-in-logo-bottom {
   visibility: visible;
-  animation: fadeIn 2s ease-in 2s backwards;
+  animation: fadeIn 2.5s ease-in 2.5s backwards;
 }
 
 .fade-in-start-button {

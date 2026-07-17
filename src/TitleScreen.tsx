@@ -20,7 +20,7 @@ function TitleScreen() {
 
     const buttonTimer = setTimeout(() => {
       setShowButton(true);
-    }, 7000);
+    }, 6000);
 
     return () => {
       clearTimeout(buttonTimer);
