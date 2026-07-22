@@ -11,6 +11,14 @@ import stairs from './kuvat/portaat.png';
 import lamp from './kuvat/lamppu.png'
 import lamp_bg from './kuvat/lamppu_tausta.png'
 
+// menu-valikko peliin? siitä voi edetä aloitusruutuun tai lopettaa pelin, jolloin siirrytään takaisin portfolio-nettisivulle
+// valinta, josta voi laittaa äänet pois: tämä voisi olla oikeassa yläkulmassa
+// menu-valikko on vasemmassa yläkulmassa
+// menu-valikko myös keskeyttää pelin (pause)
+// mobiiliversioon ohjainnäppäimet alas
+// zustand käyttöön?
+// testit
+
 function Level() {
   const { playAlarm, stopAlarm } = useAlarmSound();
 
