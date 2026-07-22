@@ -61,10 +61,10 @@ function EndScreen() {
 
       <div className="endscreen-credits">
         <div style={{ marginBottom: '30px' }}>
-          <p style={{ fontSize: '20px', margin: '15px 0', lineHeight: '2' }}>
+          <p style={{ margin: '15px 0', lineHeight: '2' }}>
             ohjelmointi<br />& grafiikka<br />& musiikki
           </p>
-          <p style={{ fontSize: '22px', margin: '10px 0', fontWeight: 'bold' }}>
+          <p style={{ margin: '20px 0', fontWeight: 'bold' }}>
             MARKUS LIIMATAINEN
           </p>
         </div>
@@ -76,7 +76,7 @@ function EndScreen() {
       >
         {showButton && (
           <>
-            <p className='fade-in-theend' style={{ margin: 0, padding: '100px 0 0 0', fontSize: '55px', color: 'white' }}>
+            <p className='fade-in-theend endscreen-theend'>
               Loppu
             </p>
             <div>
